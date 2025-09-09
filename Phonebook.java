@@ -1,28 +1,42 @@
 import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class Phonebook {
+class Phonebook {
 
-    public static void main(String[] args) throws IOException {
-        ArrayList<String> firstNames = new ArrayList<>();
-        ArrayList<String> lastNames = new ArrayList<>();
-        ArrayList<String> phoneNumbers = new ArrayList<>();
+    public static void main(String[] args) {
+        final int CAPACITY = 100;
+        PhonebookEntry[] phonebook = new PhonebookEntry[CAPACITY];
+        int entryCount = 0;
 
-        File file = new File("phonebook.text");
-        Scanner infile = new Scanner(file);
+        try {
+            File file = new File("phonebook.text");
+            Scanner infile = new Scanner(file);
 
-        Scanner keyboard = new Scanner(System.in);
-        readData(lastNames, firstNames, phoneNumbers, infile);
-        performLookups(lastNames, firstNames, phoneNumbers, keyboard);
+            while (infile.hasNext() && entryCount < CAPACITY) {
+                phonebook[entryCount] = new PhonebookEntry();
+                phonebook[entryCount].read(infile);
+                entryCount++;
+            }
 
-        keyboard.close();
-        infile.close();
+            if (infile.hasNext()) {
+                throw new Exception("*** Exception *** Phonebook capacity exceeded - increase size of underlying array");
+            }
+
+            infile.close();
+
+            Scanner keyboard = new Scanner(System.in);
+            performLookups(phonebook, entryCount, keyboard);
+            keyboard.close();
+
+        } catch (FileNotFoundException e) {
+            System.out.println("*** IOException *** phonebook.text (No such file or directory)");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
-    public static void performLookups(ArrayList<String> lastNames, ArrayList<String> firstNames, ArrayList<String> phoneNumbers,
-                                      Scanner scanner) {
+    public static void performLookups(PhonebookEntry[] phonebook, int entryCount, Scanner scanner) {
         String input;
         int lookupCount = 0;
         int reverseLookupCount = 0;
@@ -38,20 +52,25 @@ public class Phonebook {
                 System.out.print("first name? ");
                 String firstName = scanner.nextLine();
                 lookupCount++;
-                int index = lookup(firstNames, lastNames, firstName, lastName);
+                Name searchName = new Name();
+                searchName.firstName = firstName;
+                searchName.lastName = lastName;
+                int index = lookup(phonebook, entryCount, searchName);
                 if (index != -1) {
-                    System.out.println(firstName + " " + lastName + "'s phone number is " + phoneNumbers.get(index));
+                    System.out.println(phonebook[index].toString());
                 } else {
                     System.out.println("-- Name not found");
                 }
                 System.out.println();
             } else if (input.equals("r")) {
-                System.out.print("phone number (nnn-nnn-nnnn)? ");
+                System.out.print("phone number ((nnn)nnn-nnnn)? ");
                 String phoneNumber = scanner.nextLine();
                 reverseLookupCount++;
-                int index = reverseLookup(phoneNumbers, phoneNumber);
+                PhoneNumber searchNumber = new PhoneNumber();
+                searchNumber.phoneNumber = phoneNumber;
+                int index = reverseLookup(phonebook, entryCount, searchNumber);
                 if (index != -1) {
-                    System.out.println(phoneNumber + " belongs to " + lastNames.get(index) + ", " + firstNames.get(index));
+                    System.out.println(phoneNumber + " belongs to " + phonebook[index].name.toString());
                 } else {
                     System.out.println("-- Phone number not found");
                 }
@@ -65,27 +84,18 @@ public class Phonebook {
         System.out.println(reverseLookupCount + " reverse lookups performed");
     }
 
-    public static void readData(ArrayList<String> lastNames, ArrayList<String> firstNames, ArrayList<String> phoneNumbers, Scanner scanner)
-            throws IOException {
-        while (scanner.hasNext()) {
-            lastNames.add(scanner.next());
-            firstNames.add(scanner.next());
-            phoneNumbers.add(scanner.next());
-        }
-    }
-
-    public static int lookup(ArrayList<String> firstNames, ArrayList<String> lastNames, String firstName, String lastName) {
-        for (int i = 0; i < firstNames.size(); i++) {
-            if (firstName.equalsIgnoreCase(firstNames.get(i)) && lastName.equalsIgnoreCase(lastNames.get(i))) {
+    public static int lookup(PhonebookEntry[] phonebook, int entryCount, Name searchName) {
+        for (int i = 0; i < entryCount; i++) {
+            if (phonebook[i].name.equals(searchName)) {
                 return i;
             }
         }
         return -1;
     }
 
-    public static int reverseLookup(ArrayList<String> phoneNumbers, String phoneNumber) {
-        for (int i = 0; i < phoneNumbers.size(); i++) {
-            if (phoneNumber.equals(phoneNumbers.get(i))) {
+    public static int reverseLookup(PhonebookEntry[] phonebook, int entryCount, PhoneNumber searchNumber) {
+        for (int i = 0; i < entryCount; i++) {
+            if (phonebook[i].phoneNumber.equals(searchNumber)) {
                 return i;
             }
         }
