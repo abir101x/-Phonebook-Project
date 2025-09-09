@@ -10,11 +10,10 @@ public class Phonebook {
         ArrayList<String> lastNames = new ArrayList<>();
         ArrayList<String> phoneNumbers = new ArrayList<>();
 
-        // NOTE: This assumes a file named "phonebook.text" is in the same directory.
         File file = new File("phonebook.text");
         Scanner infile = new Scanner(file);
+
         Scanner keyboard = new Scanner(System.in);
-        
         readData(lastNames, firstNames, phoneNumbers, infile);
         performLookups(lastNames, firstNames, phoneNumbers, keyboard);
 
@@ -22,7 +21,8 @@ public class Phonebook {
         infile.close();
     }
 
-    public static void performLookups(ArrayList<String> lastNames, ArrayList<String> firstNames, ArrayList<String> phoneNumbers, Scanner scanner) {
+    public static void performLookups(ArrayList<String> lastNames, ArrayList<String> firstNames, ArrayList<String> phoneNumbers,
+                                      Scanner scanner) {
         String input;
         int lookupCount = 0;
         int reverseLookupCount = 0;
@@ -51,7 +51,7 @@ public class Phonebook {
                 reverseLookupCount++;
                 int index = reverseLookup(phoneNumbers, phoneNumber);
                 if (index != -1) {
-                    System.out.println(phoneNumber + " belongs to " + firstNames.get(index) + " " + lastNames.get(index));
+                    System.out.println(phoneNumber + " belongs to " + lastNames.get(index) + ", " + firstNames.get(index));
                 } else {
                     System.out.println("-- Phone number not found");
                 }
@@ -65,7 +65,8 @@ public class Phonebook {
         System.out.println(reverseLookupCount + " reverse lookups performed");
     }
 
-    public static void readData(ArrayList<String> lastNames, ArrayList<String> firstNames, ArrayList<String> phoneNumbers, Scanner scanner) throws IOException {
+    public static void readData(ArrayList<String> lastNames, ArrayList<String> firstNames, ArrayList<String> phoneNumbers, Scanner scanner)
+            throws IOException {
         while (scanner.hasNext()) {
             lastNames.add(scanner.next());
             firstNames.add(scanner.next());
