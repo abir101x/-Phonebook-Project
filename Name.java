@@ -1,3 +1,4 @@
+import java.util.Objects;
 import java.util.Scanner;
 
 class Name {
@@ -15,6 +16,11 @@ class Name {
         if (obj == null || getClass() != obj.getClass()) return false;
         Name name = (Name) obj;
         return firstName.equalsIgnoreCase(name.firstName) && lastName.equalsIgnoreCase(name.lastName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName.toLowerCase(), lastName.toLowerCase());
     }
 
     @Override
