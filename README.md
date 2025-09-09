@@ -1,35 +1,38 @@
-# Advanced Java Phonebook Project (Version 1.5)
+# Advanced Java Phonebook Project (Version 2.0)
 
-A command-line phonebook application built in Java that reads contact information from a text file and allows a user to perform lookups. This project was developed for an advanced Java programming course and demonstrates fundamental programming concepts.
+A command-line phonebook application built with Java that has been refactored to use a full Object-Oriented design. This project demonstrates key OOP principles like encapsulation, composition, and method overriding.
 
 ## Features
 
-* **Data Import:** Reads contact data (last name, first name, phone number) from an external `phonebook.text` file.
-* **Name Lookup:** Prompts the user for a first and last name and returns the corresponding phone number.
-* **Reverse Lookup:** Prompts the user for a phone number and returns the corresponding name.
-* **Session Summary:** Tracks the number of lookups and reverse lookups performed and displays a summary when the user quits.
+* **Object-Oriented Design:** The project is structured into logical classes (`Name`, `PhoneNumber`, `PhonebookEntry`) for better organization and maintainability.
+* **Data Import:** Reads contact data from an external `phonebook.text` file into an array of `PhonebookEntry` objects.
+* **Name & Reverse Lookup:** Performs lookups using custom `.equals()` methods for robust object comparison.
+* **Exception Handling:** Gracefully handles `FileNotFoundException` and throws a custom exception if the phonebook capacity is exceeded.
 
 ## How to Run
 
 1.  Ensure you have a Java Development Kit (JDK) installed.
-2.  Place the `Phonebook.java` file and a `phonebook.text` file in the same directory. The text file should be formatted with `LastName FirstName PhoneNumber` on each line.
-3.  Compile the code from your terminal:
+2.  Place all four `.java` files and a `phonebook.text` file in the same directory.
+3.  Compile all the code from your terminal:
     ```bash
-    javac Phonebook.java
+    javac *.java
     ```
-4.  Run the program:
+4.  Run the main program:
     ```bash
     java Phonebook
     ```
 
 ## Key Concepts Demonstrated
 
-* **File I/O:** Reading and parsing data from external files using `java.io.File` and `java.util.Scanner`.
-* **Data Structures:** Use of `ArrayList` to store and manage collections of data in memory.
-* **User Input Handling:** Interactive command-line interface for handling user choices and input.
-* **Procedural Decomposition:** Breaking down a larger problem into smaller, manageable static methods.
+* **Object-Oriented Programming (OOP):** Core concepts of designing and implementing a system using classes and objects.
+* **Encapsulation:** Data and methods are bundled together within classes (e.g., `Name` class holds first and last name).
+* **Composition:** Building complex objects from simpler ones (a `PhonebookEntry` is composed of a `Name` and a `PhoneNumber`).
+* **Method Overriding:** Providing custom implementations for `equals()` and `toString()` methods.
+* **Exception Handling:** Using `try-catch` blocks to manage potential runtime errors like a missing file.
+* **Arrays of Objects:** Managing a collection of custom objects.
 
 ## Changelog
 
-* **v1.5:** Updated the underlying implementation of the lookup methods. The external user interface remains the same.
+* **v2.0:** Major refactor to a full Object-Oriented design with separate classes for `Name`, `PhoneNumber`, and `PhonebookEntry`. Replaced `ArrayLists` with a fixed-size array and added exception handling.
+* **v1.5:** Updated the underlying implementation of the lookup methods.
 * **v1.0:** Initial procedural implementation of the phonebook application.
