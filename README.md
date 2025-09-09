@@ -1,8 +1,8 @@
-# Advanced Java Phonebook Project (Part 1)
+# Advanced Java Phonebook Project (Version 1.5)
 
 A command-line phonebook application built in Java that reads contact information from a text file and allows a user to perform lookups. This project was developed for an advanced Java programming course and demonstrates fundamental programming concepts.
 
-## Features (Version 1.0)
+## Features
 
 * **Data Import:** Reads contact data (last name, first name, phone number) from an external `phonebook.text` file.
 * **Name Lookup:** Prompts the user for a first and last name and returns the corresponding phone number.
@@ -12,7 +12,7 @@ A command-line phonebook application built in Java that reads contact informatio
 ## How to Run
 
 1.  Ensure you have a Java Development Kit (JDK) installed.
-2.  Place the `Phonebook.java` file and a `phonebook.txt` file in the same directory. The text file should be formatted with `LastName FirstName PhoneNumber` on each line.
+2.  Place the `Phonebook.java` file and a `phonebook.text` file in the same directory. The text file should be formatted with `LastName FirstName PhoneNumber` on each line.
 3.  Compile the code from your terminal:
     ```bash
     javac Phonebook.java
@@ -24,9 +24,12 @@ A command-line phonebook application built in Java that reads contact informatio
 
 ## Key Concepts Demonstrated
 
-This initial version of the project showcases an understanding of:
-
 * **File I/O:** Reading and parsing data from external files using `java.io.File` and `java.util.Scanner`.
 * **Data Structures:** Use of `ArrayList` to store and manage collections of data in memory.
 * **User Input Handling:** Interactive command-line interface for handling user choices and input.
-* **Procedural Decomposition:** Breaking down a larger problem into smaller, manageable static methods (`readData`, `performLookups`, etc.).
+* **Procedural Decomposition:** Breaking down a larger problem into smaller, manageable static methods.
+
+## Changelog
+
+* **v1.5:** Updated the underlying implementation of the lookup methods. The external user interface remains the same.
+* **v1.0:** Initial procedural implementation of the phonebook application.
