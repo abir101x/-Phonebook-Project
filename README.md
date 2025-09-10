@@ -32,7 +32,7 @@ A command-line phonebook application built with Java, designed with a full Objec
 
 ## Changelog
 * **v3.0:** Re-architected the phonebook to use a `HashMap` for O(1) lookups. Added support for multiple phone numbers per entry and implemented command-line argument handling.
-* **v2.5:** Refactored ` the architecture to fully encapsulate phonebook data and logic into a `Phonebook` class, with a new `PhonebookApp` runner class.
+* **v2.5:** Refactored  the architecture to fully encapsulate phonebook data and logic into a `Phonebook` class, with a new `PhonebookApp` runner class.
 * **v2.0:** Major refactor to a full Object-Oriented design with separate classes for `Name`, `PhoneNumber`, and `PhonebookEntry`.
 * **v1.5:** Updated the underlying implementation of the lookup methods.
 * **v1.0:** Initial procedural implementation of the phonebook application.
